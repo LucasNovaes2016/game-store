@@ -1,0 +1,9 @@
+export const GET_GAMES = 'GET_GAMES';
+export const ADD_GAME = 'ADD_GAME';
+export const DELETE_GAME = 'DELETE_GAME';
+export const UPDATE_GAME = 'UPDATE_GAME';
+export const SET_CURRENT_GAME = 'SET_CURRENT_GAME';
+export const CLEAR_CURRENT_GAME = 'CLEAR_CURRENT_GAME';
+export const CLEAR_GAMES = 'CLEAR_GAMES';
+export const GAMES_FORM_ERROR = 'GAMES_FORM_ERROR';
+export const SEARCH_GAMES = 'SEARCH_GAMES';
