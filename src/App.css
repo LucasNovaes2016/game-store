@@ -1,3 +1,11 @@
 #navbarContainer {
   min-width: 70%;
 }
+
+.jumbotron {
+  background-color: #dfe2e6;
+}
+
+.game-card-footer {
+  background-color: #E0E0E0;
+}

@@ -3,21 +3,25 @@ import { Redirect, BrowserRouter as Router, Switch, Route } from 'react-router-d
 import Home from './components/Home';
 import Navbar from './components/layout/Navbar';
 import './App.css';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const App = () => {
   return (
-    <Router>
-      <Fragment>
-        <div className="App">
-          <Navbar />
-          <Switch>
-            <Route path={["/", "/games"]} component={Home} />
-            <Route render={() => <Redirect to={{ pathname: "/" }} />} />
-          </Switch>
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <div className="App">
+            <Navbar />
+            <Switch>
+              <Route path={["/", "/games"]} component={Home} />
+              <Route render={() => <Redirect to={{ pathname: "/" }} />} />
+            </Switch>
 
-        </div>
-      </Fragment>
-    </Router>
+          </div>
+        </Fragment>
+      </Router>
+    </Provider>
   );
 }
 

@@ -1,9 +1,16 @@
 import React from 'react'
+import AddGameButton from './AddGameButton'
+import Games from './games/Games'
+import Jumbotron from './layout/Jumbotron'
+import SearchGame from './SearchGame'
 
 const Home = () => {
   return (
-    <div>
-      <h1> Home  Page </h1>
+    <div className="container mt-4">
+      <Jumbotron />
+      <AddGameButton />
+      <SearchGame />
+      <Games />
     </div>
   )
 }
