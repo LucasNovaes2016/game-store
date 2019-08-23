@@ -4,7 +4,8 @@ import {
   GET_GAMES,
   SET_CURRENT_GAME,
   SEARCH_GAMES,
-  CLEAR_SEARCHED_GAMES
+  CLEAR_SEARCHED_GAMES,
+  UPDATE_GAME
 } from '../actions/types';
 
 const initialState = {
@@ -14,7 +15,8 @@ const initialState = {
   ],
   searched_games: null,
   current_game: null,
-  game_errors: null
+  game_errors: null,
+  alert: null
 };
 
 export default (state = initialState, action) => {
@@ -48,6 +50,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         current_game: action.payload
+      };
+    case UPDATE_GAME:
+      return {
+        ...state,
+        games: state.games.map(game =>
+          game.id === action.payload.id ? action.payload : game
+        )
       };
     default:
       return state;

@@ -1,61 +1,70 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addGame } from '../../actions/storeActions';
+import { updateGame } from '../../actions/storeActions';
 
-const AddGameForm = ({ addGame }) => {
 
-  const [platform, setPlatform] = useState('');
+const EditGameForm = ({ current_game, updateGame }) => {
+
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [finished, setFinished] = useState(false);
-  const [game_added, setGameAdded] = useState(false);
+  const [description, setDescription] = useState(false);
+  const [platform, setPlatform] = useState('');
+  const [finished, setFinished] = useState('');
+  const [game_edited, setGameEdited] = useState(false);
+
+  useEffect(() => {
+    if (current_game) {
+      setTitle(current_game.title);
+      setDescription(current_game.description);
+      setPlatform(current_game.platform);
+      setFinished(current_game.finished)
+    }
+  }, [current_game]);
 
   const onSubmit = () => {
     if (title === '' || description === '' || platform === '') {
-      // Mensagem de erro no toast
+      // Show some toast
     } else {
-
-      addGame({
+      const updatedGame = {
+        id: current_game.id,
         platform,
         title,
         description,
         finished
-      });
+      };
 
-      // Mensagem dizendo que um jogo foi adicionado
+      updateGame(updatedGame);
 
       // Clear Fields
-      setPlatform('');
       setTitle('');
       setDescription('');
+      setPlatform('');
       setFinished(false);
-      setGameAdded(true);
+      setGameEdited(true);
     }
   };
 
-
   return (
     <Fragment>
-      {game_added ? <Redirect to="/" /> : null}
+      {game_edited ? <Redirect to="/" /> : null}
       <div class="container mt-4">
         <div class="row justify-content-md-center">
-          <div id="newGameFormContainer" class="col-lg-8 p-0">
+          <div id="newGameFormContainer" class="col-lg-8">
             <div class="card">
               <div class="card-header text-center text-light bg-dark">
-                Adicione um jogo a sua coleção
+                Edite o jogo
           </div>
               <div class="card-body">
-                <h5 class="card-title text-center">Preencha os campos abaixo</h5>
-                <form>
+                <h5 class="card-title text-center">Atualize os campos desejados</h5>
+                <form onSubmit={onSubmit}>
                   <div class="form-group">
                     <label class="font-weight-bold">Plataforma</label>
                     <select name='platform'
                       value={platform}
                       className='form-control'
-                      onChange={e => setPlatform(e.target.value)} >
+                      onChange={e => setPlatform(e.target.value)}>
                       <option value='' disabled> Selecione a plataforma</option>
                       <option value="PC">PC</option>
                       <option value="Playstation"> Playstation</option>
@@ -70,18 +79,28 @@ const AddGameForm = ({ addGame }) => {
                   </div>
                   <div class="form-group">
                     <label class="font-weight-bold">Nome</label>
-                    <input type='text' name='title' value={title} onChange={e => setTitle(e.target.value)} className="form-control" placeholder="Digite o nome do jogo" />
+                    <input type='text'
+                      name='title'
+                      value={title}
+                      onChange={e => setTitle(e.target.value)}
+                      className='form-control'
+                      placeholder='Digite o nome do jogo...' />
                   </div>
                   <div class="form-group">
                     <label class="font-weight-bold">Descrição</label>
-                    <input type='text' name='description' value={description} onChange={e => setDescription(e.target.value)} className="form-control" placeholder="Digite uma descrição pra o jogo" />
+                    <input type='text'
+                      name='description'
+                      value={description}
+                      onChange={e => setDescription(e.target.value)}
+                      className='form-control'
+                      placeholder='Digite uma descrição para o..' />
                   </div>
                   <div class="form-group form-check">
                     <input type='checkbox'
-                      className='form-check-input'
                       checked={finished}
                       value={finished}
-                      onChange={e => setFinished(!finished)} />
+                      onChange={e => setFinished(!finished)}
+                      className='form-check-input' />
                     <label class="form-check-label">Jogo Zerado</label>
                   </div>
                 </form>
@@ -89,11 +108,8 @@ const AddGameForm = ({ addGame }) => {
               <div class="card-footer text-center">
                 <div class="d-flex justify-content-center">
                   <Link to='/games' className="btn btn-primary mx-2">Cancelar</Link>
-                  <a
-                    href='#!'
-                    onClick={onSubmit}
-                    className='btn btn-danger mx-2'
-                  >Adicionar</a>
+                  <a href='#!' onClick={onSubmit} className='btn btn-danger mx-2' >
+                    Atualizar </a>
                 </div>
               </div>
             </div>
@@ -101,16 +117,20 @@ const AddGameForm = ({ addGame }) => {
         </div>
       </div>
     </Fragment>
-
   )
 }
 
-AddGameForm.propTypes = {
-  addGame: PropTypes.func.isRequired
+EditGameForm.propTypes = {
+  current_game: PropTypes.object.isRequired,
+  updateGame: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  current_game: state.store.current_game
+});
+
 export default connect(
-  null,
-  { addGame }
-)(AddGameForm);
+  mapStateToProps,
+  { updateGame }
+)(EditGameForm);
 

@@ -5,10 +5,8 @@ import {
   UPDATE_GAME,
   SET_CURRENT_GAME,
   CLEAR_CURRENT_GAME,
-  CLEAR_GAMES,
-  GAMES_FORM_ERROR,
   SEARCH_GAMES,
-  CLEAR_SEARCHED_GAMES
+  CLEAR_SEARCHED_GAMES,
 } from './types';
 
 // Delete game from state
@@ -56,11 +54,18 @@ export const searchGames = search_text => {
   };
 };
 
-
 // Set current game
 export const setCurrentGame = game => {
   return {
     type: SET_CURRENT_GAME,
+    payload: game
+  };
+};
+
+// update game
+export const updateGame = (game) => {
+  return {
+    type: UPDATE_GAME,
     payload: game
   };
 };

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Redirect, BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AddGameForm from './components/forms/AddGameForm'
+import EditGameForm from './components/forms/EditGameForm'
 import Home from './components/Home';
 import Navbar from './components/layout/Navbar';
 import './App.css';
@@ -17,6 +18,7 @@ const App = () => {
             <Switch>
               <Route exact path={["/", "/games"]} component={Home} />
               <Route exact path='/games/add' component={AddGameForm} />
+              <Route exact path='/games/edit' component={EditGameForm} />
               <Route render={() => <Redirect to={{ pathname: "/" }} />} />
             </Switch>
 

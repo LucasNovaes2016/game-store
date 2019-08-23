@@ -8,3 +8,4 @@ export const CLEAR_GAMES = 'CLEAR_GAMES';
 export const GAMES_FORM_ERROR = 'GAMES_FORM_ERROR';
 export const SEARCH_GAMES = 'SEARCH_GAMES';
 export const CLEAR_SEARCHED_GAMES = 'CLEAR_SEARCH_GAMES';
+
