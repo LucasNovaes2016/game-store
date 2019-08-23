@@ -7,9 +7,31 @@ import {
   CLEAR_CURRENT_GAME,
   CLEAR_GAMES,
   GAMES_FORM_ERROR,
-  SEARCH_GAMES
+  SEARCH_GAMES,
+  CLEAR_SEARCHED_GAMES
 } from './types';
 
+// Delete game from state
+export const addGame = (game) => {
+
+  // Generate random id
+  const uuidv1 = require('uuid/v1');
+  uuidv1();
+
+  game.id = uuidv1();
+
+  return {
+    type: ADD_GAME,
+    payload: game
+  };
+};
+
+// Delete game from state
+export const clearSearchedGames = () => {
+  return {
+    type: CLEAR_SEARCHED_GAMES
+  };
+};
 
 // Delete game from state
 export const deleteGame = id => {

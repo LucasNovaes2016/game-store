@@ -1,14 +1,19 @@
 import React, { useRef } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { searchGames } from '../actions/storeActions';
+import { searchGames, clearSearchedGames } from '../actions/storeActions';
 
-const SearchGame = ({ searchGames }) => {
+const SearchGame = ({ searchGames, clearSearchedGames }) => {
 
   const text = useRef('');
 
   const onChange = e => {
-    searchGames(text.current.value);
+    if (text.current.value !== '') {
+      searchGames(text.current.value);
+    } else {
+      clearSearchedGames();
+    }
+
   };
 
   return (
@@ -33,11 +38,12 @@ const SearchGame = ({ searchGames }) => {
 }
 
 SearchGame.propTypes = {
-  searchGames: PropTypes.func.isRequired
+  searchGames: PropTypes.func.isRequired,
+  clearSearchedGames: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { searchGames }
+  { searchGames, clearSearchedGames }
 )(SearchGame);
 

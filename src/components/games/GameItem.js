@@ -6,7 +6,7 @@ import { deleteGame, setCurrentGame } from '../../actions/storeActions';
 const GameItem = ({ game, deleteGame, setCurrentGame }) => {
 
   return (
-    <div className="col-lg-4">
+    <div className="col-lg-6 col-xl-4 mb-4">
       <div className="card text-center mx-1">
         <div className="card-header text-light bg-dark">
           {game.platform}

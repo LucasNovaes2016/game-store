@@ -1,8 +1,10 @@
 import {
+  ADD_GAME,
   DELETE_GAME,
   GET_GAMES,
   SET_CURRENT_GAME,
-  SEARCH_GAMES
+  SEARCH_GAMES,
+  CLEAR_SEARCHED_GAMES
 } from '../actions/types';
 
 const initialState = {
@@ -17,10 +19,21 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ADD_GAME:
+      return {
+        ...state,
+        games: [...state.games, action.payload]
+      };
+    case CLEAR_SEARCHED_GAMES:
+      return {
+        ...state,
+        searched_games: null
+      };
     case DELETE_GAME:
       return {
         ...state,
-        games: state.games.filter(game => game.id !== action.payload)
+        games: state.games.filter(game => game.id !== action.payload),
+        searched_games: null
       };
     case GET_GAMES:
       return {
@@ -29,7 +42,7 @@ export default (state = initialState, action) => {
     case SEARCH_GAMES:
       return {
         ...state,
-        searched_games: state.games.filter(game => game.title.includes(action.payload))
+        searched_games: state.games.filter(game => game.title.toLowerCase().includes(action.payload.toLowerCase()))
       };
     case SET_CURRENT_GAME:
       return {
